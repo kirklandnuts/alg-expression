@@ -1,31 +1,37 @@
 #include <iostream>
 #include <string>
+#include <cstddef>
 #include "node.h"
 
 using namespace std;
 
-Node::Node(char var, Node* parent) {
-    data.var = var;
-    node_t = VARIABLE;
-    this->parent = parent;
-}
+// Node::Node(char var, Node* parent) {
+//     data.var = var;
+//     node_t = VARIABLE;
+//     this->parent = parent;
+//     this->operand1 = NULL;
+//     this->operand2 = NULL;
+// }
 
 Node::Node(operator_type op, Node* operand1, Node* operand2, Node* parent) {
     data.op = op;
     node_t = EXPRESSION;
+    this->parent = parent;
     this->operand1 = operand1;
     this->operand2 = operand2;
-    this->parent = parent;
 }
 
-Node::Node(int val, Node* parent) {
-    data.val = val;
-    node_t = INTEGER;
-    this->parent = parent;
-}
+// Node::Node(int val, Node* parent) {
+//     data.val = val;
+//     node_t = INTEGER;
+//     this->parent = NULL;
+//     this->operand1 = NULL;
+//     this->operand2 = NULL;
+// }
 
 // Destructor
 Node::~Node() {
+    delete parent;
     delete operand1;
     delete operand2;
 }
@@ -52,14 +58,17 @@ void Node::set_operator(char op) {
     } else {
         data.op = DIVIDE;
     }
+    node_t = EXPRESSION;
 }
 
 void Node::set_variable(char var) {
     data.var = var;
+    node_t = VARIABLE;
 }
 
-void Node::set_value(char val) {
-    data.val = val;
+void Node::set_value(string val) {
+    this->data.val = atoi(val.c_str());;
+    node_t = INTEGER;
 }
 
 string Node::print_infix() const {
@@ -108,16 +117,30 @@ string Node::print_postfix() const {
 
 string Node::int_to_string() const {
     return to_string(data.val);
+    // return "fuck";
 }
 
-char Node::print_operator() const {
+string Node::print_operator() const {
     if (data.op == PLUS) {
-        return '+';
+        return "+";
     } else if (data.op == MINUS) {
-        return '-';
+        return "-";
     } else if (data.op == MULT) {
-        return '*';
+        return "*";
     } else {
-        return '/';
+        return "/";
+    }
+}
+
+string Node::gen_to_string() const {
+    if (node_t == EXPRESSION) {
+        return this->print_operator();
+    } else if (node_t == VARIABLE) {
+        string s;
+        s.push_back(data.var);
+        return s;
+    } else {
+        return this->int_to_string();
+        // return "VALUE";
     }
 }

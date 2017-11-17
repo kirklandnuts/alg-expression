@@ -1,10 +1,13 @@
 #include "list.h"
-
+#include "expression.h"
 using namespace std;
 
-Expression::Expression(string infix_exp) {
-    infix = infix_exp;
-    head = build_list(infix_exp);
+Expression::Expression() {
+    this->head = NULL;
+}
+
+void Expression::store_exp(string infix_str) {
+    this->head = build_list(infix_str);
 }
 
 string Expression::infixString() const {
