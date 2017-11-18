@@ -1,14 +1,22 @@
 #ifndef EXPRESSION_H
 #define EXPRESSION_H
 
+#include "node.h"
+
+
 using namespace std;
 
 class Expression {
     public:
-        Expression(string infix);
+        Expression();
+
+        void store_exp(string infix_str);
+
         string infixString() const;
         string prefixString() const;
         string postfixString() const;
     private:
-        string infix;
+        Node* head;
 };
+
+#endif
