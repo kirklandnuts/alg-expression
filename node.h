@@ -17,9 +17,7 @@ union data_type {
 class Node {
 	public:
 		// Constructor
-        // Node(char var = 'x', Node* parent = NULL);
         Node(operator_type op = PLUS, Node* operand1 = NULL, Node* operand2 = NULL, Node* parent = NULL);
-        // Node(int val = 0, Node* parent = NULL);
         // Destructor
         ~Node();
 

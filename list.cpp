@@ -39,8 +39,6 @@ Node* build_list(string infix_string) {
         } else if (cursor == ')') {
             current = current->get_parent();
         }
-        //     << "op1: " << current->get_operand1()->gen_to_string() << endl
-        //     << "op2: " << current->get_operand2()->gen_to_string() << endl;
         index += 1;
     }
     return head;

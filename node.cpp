@@ -5,14 +5,7 @@
 
 using namespace std;
 
-// Node::Node(char var, Node* parent) {
-//     data.var = var;
-//     node_t = VARIABLE;
-//     this->parent = parent;
-//     this->operand1 = NULL;
-//     this->operand2 = NULL;
-// }
-
+// Constructor
 Node::Node(operator_type op, Node* operand1, Node* operand2, Node* parent) {
     data.op = op;
     node_t = EXPRESSION;
@@ -20,14 +13,6 @@ Node::Node(operator_type op, Node* operand1, Node* operand2, Node* parent) {
     this->operand1 = operand1;
     this->operand2 = operand2;
 }
-
-// Node::Node(int val, Node* parent) {
-//     data.val = val;
-//     node_t = INTEGER;
-//     this->parent = NULL;
-//     this->operand1 = NULL;
-//     this->operand2 = NULL;
-// }
 
 // Destructor
 Node::~Node() {
@@ -117,7 +102,6 @@ string Node::print_postfix() const {
 
 string Node::int_to_string() const {
     return to_string(data.val);
-    // return "fuck";
 }
 
 string Node::print_operator() const {
@@ -141,6 +125,5 @@ string Node::gen_to_string() const {
         return s;
     } else {
         return this->int_to_string();
-        // return "VALUE";
     }
 }
