@@ -5,7 +5,7 @@ using namespace std;
 Node* build_list(string infix_string) {
     Node* current = new Node();
     Node* head = current;
-    int index = 1;
+    int index = 0;
     while (index < infix_string.length() - 1) {
         char cursor = infix_string[index];
         if (cursor == '(') {
