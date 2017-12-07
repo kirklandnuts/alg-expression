@@ -8,7 +8,6 @@ Node* build_list(string infix_string) {
     int index = 0;
     while (index < infix_string.length() - 1) {
         char cursor = infix_string[index];
-        cout << "processing char: " << cursor << endl;
         if (cursor == '(') {
             Node* n = new Node();
             n->set_parent(current);

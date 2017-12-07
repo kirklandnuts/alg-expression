@@ -6,6 +6,8 @@
 
 using namespace std;
 
+class imbalancedExpression {}; // thrown when parentheses in input string aren't balanced
+
 class Expression {
     public:
         Expression();

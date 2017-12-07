@@ -5,26 +5,7 @@
 
 using namespace std;
 
-Expression::Expression() {
-    this->head = NULL;
-}
-
-void Expression::store_exp(string infix_str) {
-    this->head = build_list(infix_str);
-}
-
-string Expression::infixString() const {
-    return head->print_infix();
-}
-
-string Expression::prefixString() const {
-    return head->print_prefix();
-}
-
-string Expression::postfixString() const {
-    return head->print_postfix();
-}
-
+// Helper functions
 int operate(int num1, int num2, char op) {
     int rnum;
     if (op == '+') {
@@ -37,6 +18,47 @@ int operate(int num1, int num2, char op) {
         rnum = num1 / num2;
     }
     return rnum;
+}
+
+bool balanced(string exp_str) {
+    stack<char> s;
+    for (int i = 0; i < exp_str.length(); i++) {
+        char c = exp_str[i];
+        if ((c == ')') & s.empty()) {
+            return false;
+        } else if (c == '(') {
+            s.push(c);
+        } else if (c == ')') {
+            s.pop();
+        }
+    }
+    return s.empty();
+}
+
+
+Expression::Expression() {
+    this->head = NULL;
+}
+
+void Expression::store_exp(string infix_str) {
+    if (balanced(infix_str)) {
+        this->head = build_list(infix_str);
+    } else {
+        cout << "Please make sure your expression has balanced parentheses.\n";
+        throw imbalancedExpression();
+    }
+}
+
+string Expression::infixString() const {
+    return head->print_infix();
+}
+
+string Expression::prefixString() const {
+    return head->print_prefix();
+}
+
+string Expression::postfixString() const {
+    return head->print_postfix();
 }
 
 int Expression::evaluate() const {
@@ -53,7 +75,6 @@ int Expression::evaluate() const {
             mystack.pop();
             num1 = mystack.top();
             mystack.pop();
-            cout << "performing " << num1 << " " << c << " " << num2 << endl;
             mystack.push(operate(num1, num2, c));
             index += 1;
         } else {
