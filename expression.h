@@ -15,6 +15,8 @@ class Expression {
         string infixString() const;
         string prefixString() const;
         string postfixString() const;
+        int evaluate() const;
+        char compare(Expression compare_exp) const;
     private:
         Node* head;
 };

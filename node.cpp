@@ -57,18 +57,27 @@ void Node::set_value(string val) {
 }
 
 string Node::print_infix() const {
-    string s = "(";
+    string s = "( ";
     if (operand1->node_t == VARIABLE) {
         s += operand1->data.var;
+        s += " ";
         s += print_operator();
+        s += " ";
         s += operand2->int_to_string();
-    }
-    else {
-        s += operand1->print_infix();
+    } else if (operand1->node_t == INTEGER) {
+        s += operand1->int_to_string();
+        s += " ";
         s += print_operator();
+        s += " ";
+        s += operand2->int_to_string();
+    } else {
+        s += operand1->print_infix();
+        s += " ";
+        s += print_operator();
+        s += " ";
         s += operand2->print_infix();
     }
-    s += ")";
+    s += " )";
     return s;
 }
 
@@ -76,11 +85,21 @@ string Node::print_prefix() const {
     string s = "";
     if (operand1->node_t == VARIABLE) {
         s += print_operator();
+        s += " ";
         s += operand1->data.var;
+        s += " ";
+        s += operand2->int_to_string();
+    } else if (operand1->node_t == INTEGER) {
+        s += print_operator();
+        s += " ";
+        s += operand1->int_to_string();
+        s += " ";
         s += operand2->int_to_string();
     } else {
         s += print_operator();
+        s += " ";
         s += operand1->print_prefix();
+        s += " ";
         s += operand2->print_prefix();
     }
     return s;
@@ -90,11 +109,21 @@ string Node::print_postfix() const {
     string s = "";
     if (operand1->node_t == VARIABLE) {
         s += operand1->data.var;
+        s += " ";
         s += operand2->int_to_string();
+        s += " ";
+        s += print_operator();
+    } else if (operand1->node_t == INTEGER) {
+        s += operand1->int_to_string();
+        s += " ";
+        s += operand2->int_to_string();
+        s += " ";
         s += print_operator();
     } else {
         s += operand1->print_postfix();
+        s += " ";
         s += operand2->print_postfix();
+        s += " ";
         s += print_operator();
     }
     return s;
